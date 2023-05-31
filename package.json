@@ -1,0 +1,22 @@
+{
+  "name": "code-blog2",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@sanity/client": "^6.1.2",
+    "bootstrap": "^4.5.0",
+    "eslint": "8.41.0",
+    "eslint-config-next": "13.4.4",
+    "next": "13.4.4",
+    "react": "18.2.0",
+    "react-bootstrap": "^1.0.1",
+    "react-dom": "18.2.0",
+    "sass": "^1.62.1"
+  }
+}
