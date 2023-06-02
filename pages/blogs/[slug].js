@@ -4,15 +4,9 @@ import { getBlogBySlug, getAllBlogs } from "@/lib/api";
 import { Row, Col } from 'react-bootstrap'
 import BlogHeader from 'components/BlogHeader';
 
-import BlockContent from '@sanity/block-content-to-react';
+import BlogContent from "@/components/BlogContent";
 
-const serializers = {
-    types: {
-        code: () => {
-            return <h1>Code Block will be here</h1>
-        }
-    }
-}
+
 
 const BlogDetail = ({blog}) => {
     const {query} = useRouter();
@@ -29,11 +23,7 @@ const BlogDetail = ({blog}) => {
                 />
                 <hr/>
                 {/* Blog Content Here */}
-                <BlockContent 
-                imageOptions={{w: 320, h: 240, fit: 'max'}}
-                serializers={serializers}
-                blocks={blog.content}
-                />
+                <BlogContent content={blog.content} />
                 </Col>
             </Row>
     </PageLayout>
