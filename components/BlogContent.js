@@ -13,9 +13,19 @@ const serializers = {
                 </HighlightCode>
             )
         },
-        image: ({node: {asset, alt}}) => {
+        image: ({node: {asset, alt, position}}) => {
+            let style = {};
+            if(position === 'left'){
+                style.float = position;
+                style.marginRight = '30px'
+            }
+            if(position === 'right'){
+                style.float = position;
+                style.marginLeft = '30px'
+            }
+            
             return(
-                <div className='blog-image'>
+                <div className='blog-image' style={{...style}}>
                     <img src={urlFor(asset.url).height(300).fit('max')}/>
                     <div className='image-alt'>{alt}</div>
 
