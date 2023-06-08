@@ -1,3 +1,4 @@
+import ThemeProvider from '@/providers/ThemeProvider';
 import { library, config } from '@fortawesome/fontawesome-svg-core';
 import { faBorderAll, faList, faSortNumericDown, faSortNumericUp } from '@fortawesome/free-solid-svg-icons';
 config.autoAddCss = false;
@@ -10,5 +11,8 @@ import 'highlight.js/styles/darcula.css'
 import '../styles/index.scss';
 
 export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return (
+  <ThemeProvider>
+    <Component {...pageProps} />
+  </ThemeProvider>);
 }

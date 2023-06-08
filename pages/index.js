@@ -8,7 +8,7 @@ import PageLayout from '@/components/PageLayout';
 import AuthorIntro from '@/components/AuthorIntro';
 
 import FilteringMenu from '@/components/FilteringMenu';
-import { getAllBlogs } from '@/lib/api';
+import { getPaginatedBlogs } from '@/lib/api';
 import { useState } from 'react';
 import { useGetBlogs } from '@/actions';
 const inter = Inter({ subsets: ['latin'] });
@@ -64,7 +64,7 @@ export default function Home({blogs}) {
 //This function is called during the build (build time)
 //Provides props to your page, it will create static page
 export async function getStaticProps(){
-  const blogs = await getAllBlogs({offset: 0, date: 'desc'});
+  const blogs = await getPaginatedBlogs({offset: 0, date: 'desc'});
   return {
     props: {
       blogs

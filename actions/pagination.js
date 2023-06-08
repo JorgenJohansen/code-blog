@@ -5,6 +5,7 @@ import CardItem from '@/components/CardItem';
 import CardListItem from '@/components/CardListItem';
 import CardItemBlank from "@/components/CardItemBlank";
 import { Col } from 'react-bootstrap';
+import moment from 'moment';
 
 export const useGetBlogsPages = ({blogs, filter}) => {
 
@@ -36,7 +37,7 @@ export const useGetBlogsPages = ({blogs, filter}) => {
                 author={blog.author}
                 title={blog.title}
                 subtitle={blog.subtitle}
-                date={blog.date}
+                date={moment(blog.date).format('LLL')}
                 link={{
                     href: '/blogs/[slug]',
                     as: `/blogs/${blog.slug}`
@@ -49,7 +50,7 @@ export const useGetBlogsPages = ({blogs, filter}) => {
                 author={blog.author}
                 title={blog.title}
                 subtitle={blog.subtitle}
-                date={blog.date}
+                date={moment(blog.date).format('LLL')}
                 image={blog.coverImage}
                 link={{
                     href: '/blogs/[slug]',
@@ -61,7 +62,7 @@ export const useGetBlogsPages = ({blogs, filter}) => {
     },
     (SWR, index) => {
         if(SWR.data && SWR.data.length === 0){ return null}
-        return (index + 1) * 3;
+        return (index + 1) * 6;
     },
     [filter]
     )

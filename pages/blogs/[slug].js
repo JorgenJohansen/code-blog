@@ -6,10 +6,22 @@ import BlogHeader from 'components/BlogHeader';
 
 import BlogContent from "@/components/BlogContent";
 import { urlFor } from '@/lib/api'
+import moment from 'moment';
+import ErrorPage from 'next/error';
 
 
 const BlogDetail = ({blog}) => {
-    const {query} = useRouter();
+    const router = useRouter();
+
+    if(!router.isFallback && !blog?.slug){
+        return <ErrorPage statusCode="404"/>
+    }
+
+    if(router.isFallback){
+        return (<PageLayout className="blog-detail-page">
+            Loading...
+        </PageLayout>);
+    }
     return (
         <PageLayout className="blog-detail-page">
             <Row>
@@ -19,11 +31,15 @@ const BlogDetail = ({blog}) => {
                     subtitle={blog.subtitle}
                     coverImage={urlFor(blog.coverImage).height(500).url()}
                     author={blog.author}
-                    date={blog.date}
+                    date={moment(blog.date).format('LLLL')}
                 />
                 <hr/>
                 {/* Blog Content Here */}
-                <BlogContent content={blog.content} />
+                {
+                    blog.content && 
+                    <BlogContent content={blog.content} />
+                }
+                
                 </Col>
             </Row>
     </PageLayout>
@@ -46,7 +62,7 @@ export async function getStaticPaths(){
     )
     return {
         paths, 
-        fallback: false
+        fallback: true
     }
 }
 

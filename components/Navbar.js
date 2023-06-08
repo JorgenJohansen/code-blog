@@ -1,7 +1,9 @@
 import { Navbar, Nav } from 'react-bootstrap';
 import Link from 'next/link';
+import { useTheme } from 'providers/ThemeProvider'
 
 const BlogNavbar = () => {
+  const { theme, toggleTheme } = useTheme();
   return (
     <Navbar
         className="fj-navbar fj-nav-base"
@@ -23,6 +25,7 @@ const BlogNavbar = () => {
               </Link>
             }>
             </Nav.Link>
+            <button className='btn btn-success' onClick={toggleTheme}>{theme.type}</button>
         </Nav>
         </Navbar.Collapse>
     </Navbar>
