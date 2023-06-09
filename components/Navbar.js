@@ -1,16 +1,17 @@
 import { Navbar, Nav } from 'react-bootstrap';
 import Link from 'next/link';
-import { useTheme } from 'providers/ThemeProvider'
 
-const BlogNavbar = () => {
-  const { theme, toggleTheme } = useTheme();
+
+const BlogNavbar = ({theme, toggleTheme}) => {
+
   return (
     <Navbar
+        variant={theme.type}
         className="fj-navbar fj-nav-base"
         bg="transparent"
         expand="lg" >
         <Navbar.Brand className="fj-navbar-brand">
-          <Link href="/">
+          <Link href="/" style={{color: theme.fontColor}}>
           Filip-Jerga
           </Link>
         </Navbar.Brand>
