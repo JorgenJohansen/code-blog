@@ -14,10 +14,10 @@ import { useGetBlogs } from '@/actions';
 const inter = Inter({ subsets: ['latin'] });
 
 import { useGetBlogsPages } from '@/actions/pagination';
+import PreviewAlert from "@/components/PreviewAlert";
 
 
-
-export default function Home({blogs}) {
+export default function Home({blogs, preview}) {
 
   const [filter, setFilter] = useState({
     view: {list: 1},
@@ -35,6 +35,7 @@ export default function Home({blogs}) {
   return (
   <>
   <PageLayout>
+    {preview && <PreviewAlert />}
     <AuthorIntro />
     
     <FilteringMenu 
@@ -63,11 +64,11 @@ export default function Home({blogs}) {
 }
 //This function is called during the build (build time)
 //Provides props to your page, it will create static page
-export async function getStaticProps(){
+export async function getStaticProps({preview = false}){
   const blogs = await getPaginatedBlogs({offset: 0, date: 'desc'});
   return {
     props: {
-      blogs
+      blogs, preview
     }
   }
 }
