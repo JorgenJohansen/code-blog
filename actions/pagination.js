@@ -45,7 +45,7 @@ export const useGetBlogsPages = ({blogs, filter}) => {
                 />
             </Col>
             :
-            <Col key={blog.slug} md="4">
+            <Col key={blog.slug} md="6" lg="4">
                 <CardItem
                 author={blog.author}
                 title={blog.title}
