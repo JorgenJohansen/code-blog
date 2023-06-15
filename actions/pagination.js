@@ -7,29 +7,8 @@ import CardItemBlank from "@/components/CardItemBlank";
 import { Col } from 'react-bootstrap';
 import moment from 'moment';
 
-export const useGetBlogsPages = ({blogs, filter}) => {
-
-    useEffect(() => {
-        window.__pagination__init = true;
-    }, [])
-
-    return useSWRPages('index-page',
-    ({offset, withSWR}) => {
-        let initialData = !offset && blogs;
-
-        if(typeof window !== 'undefined' && window.__pagination__init){
-            initialData = null;
-        }
-
-        const { data: paginatedBlogs } = withSWR(useGetBlogs({offset, filter}, initialData));
-        
-        if(!paginatedBlogs) { return (
-        <Col md="4">
-            <CardItemBlank />
-        </Col>
-        )}
-
-        return paginatedBlogs
+const BlogList =  ({blogs, filter}) => {
+    return blogs
             .map(blog =>
             filter.view.list ?
             <Col key={`${blog.slug}-list`} md="9">
@@ -50,7 +29,7 @@ export const useGetBlogsPages = ({blogs, filter}) => {
                 author={blog.author}
                 title={blog.title}
                 subtitle={blog.subtitle}
-                date={moment(blog.date).format('LLL')}
+                date={moment(blog.date).format('LL')}
                 image={blog.coverImage}
                 link={{
                     href: '/blogs/[slug]',
@@ -59,6 +38,28 @@ export const useGetBlogsPages = ({blogs, filter}) => {
                 />
             </Col>
         )
+}
+
+export const useGetBlogsPages = ({blogs, filter}) => {
+
+    return useSWRPages('index-page',
+    ({offset, withSWR}) => {
+
+        const { data: paginatedBlogs, error } = withSWR(useGetBlogs({offset, filter}));
+
+        if(!offset && !paginatedBlogs && !error){
+            return <BlogList blogs={blogs} filter={filter} />
+        }
+        
+        if(!paginatedBlogs) { return (
+        <Col md="4">
+            <CardItemBlank />
+        </Col>
+        )}
+
+        return <BlogList blogs={paginatedBlogs} filter={filter}/>
+
+        
     },
     (SWR, index) => {
         if(SWR.data && SWR.data.length === 0){ return null}
